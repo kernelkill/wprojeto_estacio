@@ -29,8 +29,17 @@ public class ServletIMC extends HttpServlet {
 			request.setAttribute("peso",pesoT);
 			request.setAttribute("altura", alturaT);
 			request.setAttribute("imc", imc);
+			String msg = "";
+			if(imc < 18.0 ){
+				msg = "Voce esta abaixo do peso";
+			}else if (imc < 25.00) {
+				msg = "Voce forma Diego Paniago";
+			}else {
+				msg ="Fudeo amiigo";
+			}
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/servletimcview");
+			request.setAttribute("msg", msg);
+			RequestDispatcher rd = request.getRequestDispatcher("/imcview.jsp");
 			rd.forward(request, response);
 			return;
 
@@ -47,19 +56,4 @@ public class ServletIMC extends HttpServlet {
 		}
 	}
 
-	//
-	// public ServletIMC() {
-	// super();
-	// // TODO Auto-generated constructor stub
-	// }
-	//
-	// public void init(ServletConfig config) throws ServletException {
-	// // TODO Auto-generated method stub
-	// }
-	//
-	// protected void doPost(HttpServletRequest request, HttpServletResponse
-	// response)
-	// throws ServletException, IOException {
-	// // TODO Auto-generated method stub
-	// }
 }
