@@ -2,6 +2,7 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,34 +20,22 @@ public class ServletIMC extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 
-			out.println("<html>");
-			out.println("<head>");
-			out.println("<title> Calculadora IMC: Resultado </title>");
-			out.println("</head>");
-			out.println("<body>");
-			out.print("<h1>Indice de Massa corpora: </h1>");
 
 			Double pesoT = Double.valueOf(request.getParameter("peso").replaceAll(",", "."));
 			Double alturaT = Double.valueOf(request.getParameter("altura").replaceAll(",", "."));
 
 			Double imc = pesoT / (alturaT * alturaT);
-
-			out.println("<p> Peso: " + pesoT + "</p>");
-			out.println("<p>Altura: " + alturaT + "</p>");
-			out.println("<p> IMC: " + imc + "</p>");
 			
-			if (imc < 18.0) {
-				out.println("<p> Cuidado! abaixo </p>");
-			}else if( imc < 25.0){
-				out.println("<p> Parabens! Peso ideal.");
-			}else{
-				out.println("<p>Cuidado! Acima</p>");
-			}
+			request.setAttribute("peso",pesoT);
+			request.setAttribute("altura", alturaT);
+			request.setAttribute("imc", imc);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/servletimcview");
+			rd.forward(request, response);
+			return;
 
-			out.println("</body>");
-			out.println("</html>");
+			
 		} catch (Exception e) {
-			
 			out.println("<html>");
 			out.println("<head>");
 			out.println("<title> Calculadora IMC: Resultado </title>");
