@@ -55,5 +55,4 @@ public class ServletIMC extends HttpServlet {
 			out.println("</html>");
 		}
 	}
-
 }
